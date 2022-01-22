@@ -1,14 +1,32 @@
-import logo from "./logo.svg";
+import { makeStyles } from "@material-ui/core";
+import Header from "components/Header";
+import Loading from "components/Loading";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router";
+import { NavLink } from "react-router-dom";
 import "./App.css";
+import NotPound from "./components/NotFound";
+import AlbumFeature from "./features/Album/index";
+import CounterFeature from "./features/Counter";
+import ListCourseFeature from "./features/ListCourse";
+import TodoFeature from "./features/Todo/index";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Trung Nguyen</p>
-        <i>“𝘌𝘷𝘦𝘳𝘺𝘵𝘩𝘪𝘯𝘨 𝘸𝘪𝘭𝘭 𝘣𝘦 𝘦𝘢𝘴𝘺 𝘪𝘧 𝘺𝘰𝘶 𝘵𝘳𝘺 𝘩𝘢𝘳𝘥...”</i>
-      </header>
+      <Header />
+
+      <Switch>
+        <Redirect from=" " to=" " />
+
+        <Route path="/" exact component={Loading} />
+        <Route path="/todo" component={TodoFeature} />
+        <Route path="/albums" component={AlbumFeature} />
+        <Route path="/counter" component={CounterFeature} />
+        <Route path="/course" component={ListCourseFeature} />
+
+        <Route component={NotPound} />
+      </Switch>
     </div>
   );
 }
