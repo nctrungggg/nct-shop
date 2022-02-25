@@ -5,7 +5,7 @@ import { decrease, increase } from "./counterSlice";
 
 CounterFeature.propTypes = {};
 const useStyles = makeStyles({
-  root: {
+  btn: {
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
     border: 0,
     borderRadius: 3,
@@ -19,13 +19,17 @@ const useStyles = makeStyles({
 });
 
 function CounterFeature(props) {
+  // style MUI
   const classes = useStyles();
 
-  const dispatch = useDispatch();
+  // lấy state trong redux ra
   const count = useSelector((state) => state.count);
 
+  // tạo dispatch để gửi action đi
+  const dispatch = useDispatch();
+
   const handleIncreaseClick = () => {
-    const action = increase();
+    const action = increase(); // action creator
     dispatch(action);
   };
 
@@ -39,10 +43,15 @@ function CounterFeature(props) {
       <h1> Counter: {count}</h1>
 
       <div>
-        <Button className={classes.root} onClick={handleIncreaseClick}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleIncreaseClick}
+        >
           Increase
         </Button>
-        <Button className={classes.root} onClick={handleDecreaseClick}>
+        /
+        <Button className={classes.btn} onClick={handleDecreaseClick}>
           De crease
         </Button>
       </div>

@@ -1,9 +1,8 @@
-import { makeStyles } from "@material-ui/core";
 import Header from "components/Header";
-import Loading from "components/Loading";
+import Home from "components/Home";
+import ProductFeature from "features/Product/index";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
-import { NavLink } from "react-router-dom";
 import "./App.css";
 import NotPound from "./components/NotFound";
 import AlbumFeature from "./features/Album/index";
@@ -19,11 +18,12 @@ function App() {
       <Switch>
         <Redirect from=" " to=" " />
 
-        <Route path="/" exact component={Loading} />
+        <Route path="/" exact component={Home} />
         <Route path="/todo" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
         <Route path="/counter" component={CounterFeature} />
         <Route path="/course" component={ListCourseFeature} />
+        <Route path="/products" component={ProductFeature} />
 
         <Route component={NotPound} />
       </Switch>

@@ -3,6 +3,7 @@ import { register } from "features/Auth/userSlice";
 import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useSnackbar } from "../../../../../node_modules/notistack/dist/index";
 import RegisterForm from "../RegisterForm";
 
@@ -24,14 +25,16 @@ function Register({ closeDialog }) {
       const action = register(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      console.log("USER: ", unwrapResult(resultAction));
 
       // close dialog
       if (!closeDialog) return;
       closeDialog();
 
       // show success message
-      enqueueSnackbar("Register successfully", { variant: "success" });
+      enqueueSnackbar("Register successfully", {
+        variant: "success",
+        autoHideDuration: 1000,
+      });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }

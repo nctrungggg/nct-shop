@@ -4,15 +4,15 @@ import {
   Button,
   LinearProgress,
   makeStyles,
-  Typography,
+  Typography
 } from "@material-ui/core";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import PasswordField from "components/form-controls/passwordField";
 import PropTypes from "prop-types";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import InputField from "../../../../components/form-controls/inputField";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import PasswordField from "components/form-controls/passwordField";
 
 RegisterForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -88,6 +88,7 @@ function RegisterForm(props) {
     resolver: yupResolver(schema),
   });
 
+  
   const handleSubmit = async (values) => {
     if (!onSubmit) return;
     await onSubmit(values);

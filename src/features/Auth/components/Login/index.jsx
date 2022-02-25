@@ -3,6 +3,7 @@ import { login } from "features/Auth/userSlice";
 import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useSnackbar } from "../../../../../node_modules/notistack/dist/index";
 import LoginForm from "../LoginForm/index";
 
@@ -16,6 +17,7 @@ Login.defaultProps = {
 function Login({ closeDialog }) {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = async (values) => {
     try {
@@ -24,14 +26,18 @@ function Login({ closeDialog }) {
       const action = login(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      console.log("USER: ", unwrapResult(resultAction));
 
       // close dialog
       if (!closeDialog) return;
       closeDialog();
 
       // show success message
-      enqueueSnackbar("Login   successfully", { variant: "success" });
+      enqueueSnackbar("Login successfully", {
+        variant: "success",
+        autoHideDuration: 1000,
+      });
+
+      history.push("/");
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }

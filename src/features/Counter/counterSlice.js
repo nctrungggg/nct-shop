@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const counterSlice = createSlice({
+const courseSlice = createSlice({
   name: "counter",
   initialState: 0,
   reducers: {
     increase(state, action) {
-      console.log(action);
       return state + 1;
     },
 
@@ -15,7 +14,7 @@ const counterSlice = createSlice({
   },
 });
 
-const { actions, reducer } = counterSlice;
+const { actions, reducer } = courseSlice;
 
 export const { increase, decrease } = actions;
 export default reducer;

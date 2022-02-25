@@ -47,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
 
     zIndex: 1,
   },
+
+  name: {
+    fontSize: "16px",
+    color: "#fff",
+  },
 }));
 
 const MODE = {
@@ -61,9 +66,7 @@ export default function Header() {
   const loggedInUser = useSelector((state) => state.user.current);
   const isLoggedIn = !!loggedInUser.id;
 
-  console.log(loggedInUser.id);
-  console.log("loggedInUser: ", loggedInUser);
-  console.log("isLoggedIn: ", isLoggedIn);
+
 
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
@@ -71,6 +74,7 @@ export default function Header() {
 
   const handleClickOpen = () => {
     setOpen(true);
+    setMode(MODE.LOGIN);
   };
 
   const handleCloseDialog = (event, reason) => {
@@ -90,7 +94,7 @@ export default function Header() {
   const handleLogoutClick = () => {
     const action = logout();
     dispatch(action);
-    
+
     setAnchorEl(null);
   };
 
@@ -142,10 +146,20 @@ export default function Header() {
               LOG IN
             </Button>
           )}
-          {isLoggedIn && (
-            <IconButton color="inherit" onClick={handleUserClick}>
-              <AccountCircleIcon />
-            </IconButton>
+
+          {isLoggedIn && mode === MODE.REGISTER && (
+            <Button onClick={handleClickOpen} color="inherit">
+              LOG IN
+            </Button>
+          )}
+
+          {isLoggedIn && mode === MODE.LOGIN && (
+            <>
+              <p className={classes.name}>{loggedInUser.fullName}</p>
+              <IconButton color="inherit" onClick={handleUserClick}>
+                <AccountCircleIcon />
+              </IconButton>
+            </>
           )}
         </Toolbar>
       </AppBar>
