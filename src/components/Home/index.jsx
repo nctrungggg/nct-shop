@@ -11,7 +11,7 @@ function Home(props) {
   };
   return (
     <div>
-      <h1>HOME </h1>
+      <h1>NCT HOME </h1>
       <Button variant="contained" color="primary" onClick={toProduct}>
         Products
       </Button>
