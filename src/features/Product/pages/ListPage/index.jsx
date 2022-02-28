@@ -9,6 +9,9 @@ import productApi from "../../../../api/productApi.js";
 import ProductSkeletonList from "../../components/ProductSkeletonList";
 import ProductList from "features/Product/components/ProductList";
 import Pagination from "@material-ui/lab/Pagination";
+import ProductSort from "features/Product/components/ProductSort";
+import ProductFilters from "features/Product/components/ProductFilters";
+import FiltersSkeleton from "features/Product/components/FiltersSkeleton";
 
 ListPage.propTypes = {};
 
@@ -37,13 +40,13 @@ function ListPage() {
   const [filters, setFilters] = useState({
     _page: 1,
     _limit: 8,
+    _sort: "salePrice:ASC",
   });
 
   useEffect(() => {
     (async () => {
       try {
         const { data, pagination } = await productApi.getAll(filters);
-        console.log(data, pagination);
         // cập nhật danh sách sản phẩm
         setProductList(data);
 
@@ -64,12 +67,35 @@ function ListPage() {
     }));
   };
 
+  const handleSortChange = (newSortValue) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      _sort: newSortValue,
+    }));
+  };
+
+  const handleFiltersChange = (newFilters) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      ...newFilters,
+    }));
+  };
+
   return (
     <Box>
       <Container>
-        <Grid container spacing={2}>
+        <Grid container>
           <Grid item className="left">
-            <Paper elevation={0}>left</Paper>
+            <Paper elevation={0}>
+              {loading ? (
+                <FiltersSkeleton />
+              ) : (
+                <ProductFilters
+                  filters={filters}
+                  onChange={handleFiltersChange}
+                />
+              )}
+            </Paper>
           </Grid>
 
           <Grid item className="right">
@@ -77,8 +103,15 @@ function ListPage() {
               {loading ? (
                 <ProductSkeletonList />
               ) : (
-                <ProductList data={productList} />
+                <>
+                  <ProductSort
+                    currentSort={filters._sort}
+                    onChange={handleSortChange}
+                  />
+                  <ProductList data={productList} />
+                </>
               )}
+
               <Box className="pagination">
                 <Pagination
                   onChange={handlePageChange}
