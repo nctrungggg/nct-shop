@@ -4,7 +4,7 @@ import {
   Button,
   LinearProgress,
   makeStyles,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import PasswordField from "components/form-controls/passwordField";
@@ -88,7 +88,6 @@ function RegisterForm(props) {
     resolver: yupResolver(schema),
   });
 
-  
   const handleSubmit = async (values) => {
     if (!onSubmit) return;
     await onSubmit(values);
@@ -103,7 +102,7 @@ function RegisterForm(props) {
         <LockOutlinedIcon />
       </Avatar>
       <Typography className={classes.title} component="h3" variant="h5">
-        Create An Account
+        Đăng ký tài khoản
       </Typography>
       <form className={classes.form} onSubmit={form.handleSubmit(handleSubmit)}>
         <InputField name="fullName" label="Full Name" form={form} />
@@ -123,7 +122,7 @@ function RegisterForm(props) {
           size="large"
           disabled={isSubmitting}
         >
-          Create An Account
+          Đăng ký
         </Button>
       </form>
     </div>

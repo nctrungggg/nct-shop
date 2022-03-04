@@ -34,10 +34,13 @@ const useStyles = makeStyles((theme) => ({
     padding: "3px",
     fontSize: "12px",
   },
+
+  img: {
+    borderRadius: " 0.5rem",
+  },
 }));
 
 function Product({ product }) {
-  console.log("product: ", product);
   const classes = useStyles();
 
   const thumbnailUrl = product.thumbnail
@@ -53,8 +56,13 @@ function Product({ product }) {
           </Typography>
         )}
       </Box>
-      <Box paddingL={1} minHeight="212px">
-        <img src={thumbnailUrl} alt={product.name} width="100%" />
+      <Box paddingLeft={1} minHeight="212px">
+        <img
+          className={classes.img}
+          src={thumbnailUrl}
+          alt={product.name}
+          width="100%"
+        />
       </Box>
 
       <Box paddingLeft={1}>

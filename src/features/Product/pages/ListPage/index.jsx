@@ -1,34 +1,41 @@
-import Box from "@material-ui/core/Box";
+import { Box, IconButton } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import Pagination from "@material-ui/lab/Pagination";
+import NotPound from "components/NotFound/index";
+import FiltersSkeleton from "features/Product/components/FiltersSkeleton";
+import ProductFilters from "features/Product/components/ProductFilters";
+import ProductList from "features/Product/components/ProductList";
+import ProductSearch from "features/Product/components/ProductSearch.jsx";
 import React, { useEffect, useState } from "react";
-import "./style.scss";
 import productApi from "../../../../api/productApi.js";
 import ProductSkeletonList from "../../components/ProductSkeletonList";
-import ProductList from "features/Product/components/ProductList";
-import Pagination from "@material-ui/lab/Pagination";
-import ProductSort from "features/Product/components/ProductSort";
-import ProductFilters from "features/Product/components/ProductFilters";
-import FiltersSkeleton from "features/Product/components/FiltersSkeleton";
+import "./style.scss";
 
 ListPage.propTypes = {};
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  boxSearch: {
+    display: "flex",
 
-  //   left: {
-  //     with: "252px",
-  //   },
+    justifyContent: " space-between",
 
-  // right: {
-  //   flex: "1 1 auto",
-  // },
+    paddingTop: theme.spacing(2),
+    // margin: " 0 auto",
+  },
+
+  search: {},
+
+  paginationTop: {},
 }));
 
 function ListPage() {
-  // const classes = useStyles();
+  const classes = useStyles();
+
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
@@ -36,12 +43,13 @@ function ListPage() {
     total: 8,
     page: 1,
   });
+  const totalPages = Math.ceil(pagination.total / pagination.limit);
 
   const [filters, setFilters] = useState({
     _page: 1,
     _limit: 8,
-    _sort: "salePrice:ASC",
   });
+  console.log("filters:", filters);
 
   useEffect(() => {
     (async () => {
@@ -61,16 +69,10 @@ function ListPage() {
   }, [filters]);
 
   const handlePageChange = (e, page) => {
+    console.log(page);
     setFilters((prevFilters) => ({
       ...prevFilters,
       _page: page,
-    }));
-  };
-
-  const handleSortChange = (newSortValue) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      _sort: newSortValue,
     }));
   };
 
@@ -78,6 +80,14 @@ function ListPage() {
     setFilters((prevFilters) => ({
       ...prevFilters,
       ...newFilters,
+    }));
+  };
+
+  const haha = (value) => {
+    console.log(value);
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      _page: value,
     }));
   };
 
@@ -104,11 +114,28 @@ function ListPage() {
                 <ProductSkeletonList />
               ) : (
                 <>
-                  <ProductSort
-                    currentSort={filters._sort}
-                    onChange={handleSortChange}
-                  />
-                  <ProductList data={productList} />
+                  <Box height={40} className={classes.boxSearch}>
+                    <ProductSearch className={classes.search} />
+                    <Box className={classes.paginationTop}>
+                      <IconButton
+                        color="primary"
+                        disabled={pagination.page <= 1}
+                        onClick={() => haha(pagination.page - 1)}
+                      >
+                        <ArrowBackIcon />
+                      </IconButton>
+                      <IconButton
+                        color="primary"
+                        disabled={pagination.page >= totalPages}
+                        onClick={() => haha(pagination.page + 1)}
+                      >
+                        <ArrowForwardIcon />
+                      </IconButton>
+                    </Box>
+                  </Box>
+
+                  {productList && <ProductList data={productList} />}
+                  {productList.length === 0 && <NotPound />}
                 </>
               )}
 

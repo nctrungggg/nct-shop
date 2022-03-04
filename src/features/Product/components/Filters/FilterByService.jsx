@@ -26,6 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
     "& > li": {
       margin: 0,
+      transition: "all .25s",
+      position: "relative",
+      right: 0,
+
+      "  &:hover": {
+        right: "-6px",
+        color: theme.palette.primary.dark,
+        cursor: "pointer",
+      },
     },
   },
   label: {

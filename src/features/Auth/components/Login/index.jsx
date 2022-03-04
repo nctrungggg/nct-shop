@@ -17,7 +17,6 @@ Login.defaultProps = {
 function Login({ closeDialog }) {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const handleSubmit = async (values) => {
     try {
@@ -36,8 +35,6 @@ function Login({ closeDialog }) {
         variant: "success",
         autoHideDuration: 1000,
       });
-
-      history.push("/");
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }

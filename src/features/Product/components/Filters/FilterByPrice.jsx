@@ -1,20 +1,53 @@
 import {
   Box,
   Button,
+  InputAdornment,
   TextField,
   Typography,
-  InputAdornment,
 } from "@material-ui/core";
-import PropTypes from "prop-types";
-import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ReplayIcon from "@material-ui/icons/Replay";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import NumberFormat from "react-number-format";
+import ProductSortByPrice from "./ProductSortByPrice";
+import "./styleFilter.scss";
+
 FilterByPrice.propTypes = {
   onChange: PropTypes.func,
+  filters: PropTypes.object.isRequired,
 };
 FilterByPrice.defaultProps = {
   onChange: null,
 };
+
+NumberFormatCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+// format values khi người dùng nhập: 1000 => 1,000
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      isNumericString
+    />
+  );
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,22 +70,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  replayIcon: {
-    position: "absolute",
-    top: "16px",
-    right: "10px",
+  checkbox: {
+    display: "none",
 
-    color: theme.palette.grey[800],
-    fontSize: "20px",
-
-    "&:hover": {
-      cursor: "pointer",
+    "&:checked + replayIcon": {
+      transform: "rotate(180deg)",
     },
   },
 }));
 
-function FilterByPrice({ onChange }) {
+function FilterByPrice({ filters, onChange }) {
   const classes = useStyles();
+
+  const [hide, setHide] = useState(true);
 
   const [values, setValues] = useState({
     salePrice_gte: "",
@@ -60,6 +90,8 @@ function FilterByPrice({ onChange }) {
   });
 
   const handleInputChange = (e) => {
+    setHide(false);
+
     const { name, value } = e.target;
 
     setValues((prevValues) => ({
@@ -72,45 +104,82 @@ function FilterByPrice({ onChange }) {
     if (onChange) onChange(values);
   };
 
-  const handleResetVlues = () => {
+  const handleResetValues = () => {
     setValues({
       salePrice_gte: "",
       salePrice_lte: "",
     });
+
+    delete filters.salePrice_gte;
+    delete filters.salePrice_lte;
+
+    if (onChange) onChange(filters);
+  };
+
+  const handleOnkeypress = (e) => {
+    if (e.charCode == "45" || e.charCode == "101") {
+      e.preventDefault();
+    }
+  };
+
+  const handleSortChange = (isChecked, newSortValue) => {
+    if (!onChange) return;
+
+    if (isChecked === true) onChange(delete filters._sort);
+
+    if (isChecked === false) onChange({ _sort: newSortValue });
   };
 
   return (
     <Box className={classes.root}>
+      <Typography variant="subtitle2">GIÁ</Typography>
+
+      <ProductSortByPrice onChange={handleSortChange} />
+
       <Typography variant="subtitle2">CHỌN KHOẢNG GIÁ</Typography>
-      <ReplayIcon
-        className={classes.replayIcon}
-        onClick={handleResetVlues}
-      ></ReplayIcon>
+
+      {hide || (
+        <Box>
+          <label htmlFor="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div className="replayIcon">
+              <ReplayIcon onClick={handleResetValues}></ReplayIcon>
+            </div>
+          </label>
+        </Box>
+      )}
 
       <Box className={classes.range}>
         <TextField
-          placeholder="0"
-          size="small"
           name="salePrice_gte"
+          size="small"
+          placeholder="0"
           value={values.salePrice_gte}
           onChange={handleInputChange}
+          onKeyPress={handleOnkeypress}
           InputProps={{
+            inputComponent: NumberFormatCustom,
+            min: 0,
             endAdornment: <InputAdornment position="end">₫</InputAdornment>,
           }}
         />
         <span>-</span>
         <TextField
-          placeholder="0"
           size="small"
           name="salePrice_lte"
+          placeholder="10.000"
           value={values.salePrice_lte}
           onChange={handleInputChange}
+          onKeyPress={handleOnkeypress}
           InputProps={{
+            inputComponent: NumberFormatCustom,
+            min: 0,
             endAdornment: <InputAdornment position="end">₫</InputAdornment>,
           }}
         />
       </Box>
       <Button
+        disabled={hide}
         variant="outlined"
         color="primary"
         size="small"

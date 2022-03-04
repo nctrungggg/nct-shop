@@ -1,4 +1,4 @@
-import Box from "@material-ui/core/Box";
+import { Box, Paper } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Skeleton from "@material-ui/lab/Skeleton";
 import PropTypes from "prop-types";
@@ -14,11 +14,8 @@ FiltersSkeleton.defaultProps = {
 
 function FiltersSkeleton({ length }) {
   return (
-    <Box>
-      <Skeleton variant="rect" width="100%" height={500} />
-      <Skeleton />
-      <Skeleton />
-      <Skeleton width="60%" />
+    <Box height={500} padding={1}>
+      <Paper></Paper>
     </Box>
   );
 }

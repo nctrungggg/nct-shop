@@ -1,18 +1,24 @@
-import React from "react";
+import { Box } from "@material-ui/core";
+import React, { useState } from "react";
 import "./style.scss";
-
+import ReplayIcon from "@material-ui/icons/Replay";
+import classnames from "classnames";
+import ReactImageZoom from "react-image-zoom";
 Album.propTypes = {};
 
 function Album({ album }) {
-  return (
-    <div className="album">
-      
-      <div className="album__thumbnail">
-        <img src={album.thumbnailUrl} alt={album.name} />
-      </div>
+  const props = {
+    width: 400,
+    height: 250,
+    zoomWidth: 500,
+    img: "http://malaman.github.io/react-image-zoom/example/1.jpg",
+  };
 
-      <p className="album__name">{album.name}</p>
-    </div>
+  return (
+    <Box>
+      <img src={album.thumbnail} alt="" />
+      <ReactImageZoom {...props} />
+    </Box>
   );
 }
 

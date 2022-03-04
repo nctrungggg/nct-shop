@@ -24,14 +24,14 @@ function ProductFilters({ filters, onChange }) {
     onChange(newFilters);
   };
 
-  const handleChange = (values) => {
+  const handleChange = ( values) => {
     if (onChange) onChange(values);
   };
 
   return (
     <Box>
       <FilterByCategory onChange={handleCategoryChange} />
-      <FilterByPrice onChange={handleChange} />
+      <FilterByPrice filters={filters} onChange={handleChange} />
       <FilterByService filters={filters} onChange={handleChange} />
     </Box>
   );

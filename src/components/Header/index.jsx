@@ -17,7 +17,7 @@ import Register from "features/Auth/components/Register";
 import { logout } from "features/Auth/userSlice";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./style.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -66,8 +66,6 @@ export default function Header() {
   const loggedInUser = useSelector((state) => state.user.current);
   const isLoggedIn = !!loggedInUser.id;
 
-
-
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -110,46 +108,15 @@ export default function Header() {
             </Link>
           </Typography>
 
-          <div className="nav">
-            <NavLink
-              to="/todo"
-              className={classes.link}
-              activeClassName="active-menu"
-            >
-              <Button color="inherit">Todo</Button>
-            </NavLink>
-            <NavLink
-              to="/albums"
-              className={classes.link}
-              activeClassName="active-menu"
-            >
-              <Button color="inherit">Albums</Button>
-            </NavLink>
-            <NavLink
-              to="/counter"
-              className={classes.link}
-              activeClassName="active-menu"
-            >
-              <Button color="inherit">Counter</Button>
-            </NavLink>
-            <NavLink
-              to="/course"
-              className={classes.link}
-              activeClassName="active-menu"
-            >
-              <Button color="inherit">Course</Button>
-            </NavLink>
-          </div>
-
           {!isLoggedIn && (
             <Button onClick={handleClickOpen} color="inherit">
-              LOG IN
+              Đăng nhập
             </Button>
           )}
 
           {isLoggedIn && mode === MODE.REGISTER && (
             <Button onClick={handleClickOpen} color="inherit">
-              LOG IN
+              Đăng nhập
             </Button>
           )}
 
@@ -207,7 +174,7 @@ export default function Header() {
                   color="primary"
                   onClick={() => setMode(MODE.LOGIN)}
                 >
-                  Already have an account. Login here
+                  Đã có tài khoản? Đăng nhập
                 </Button>
               </Box>
             </>
@@ -223,7 +190,7 @@ export default function Header() {
                   color="primary"
                   onClick={() => setMode(MODE.REGISTER)}
                 >
-                  Dont have an account. Register here
+                  Chưa có tài khoản? Đăng ký
                 </Button>
               </Box>
             </>
