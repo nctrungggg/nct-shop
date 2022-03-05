@@ -147,9 +147,8 @@ export default function Header() {
         }}
         getContentAnchorEl={null}
       >
-        <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
-        <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
-        <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+        <MenuItem onClick={handleCloseMenu}>Tài khoản của tôi</MenuItem>
+        <MenuItem onClick={handleLogoutClick}>Đăng xuất</MenuItem>
       </Menu>
 
       <Dialog

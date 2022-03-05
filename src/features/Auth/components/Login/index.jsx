@@ -31,7 +31,7 @@ function Login({ closeDialog }) {
       closeDialog();
 
       // show success message
-      enqueueSnackbar("Login successfully", {
+      enqueueSnackbar("Đăng nhập thành công", {
         variant: "success",
         autoHideDuration: 1000,
       });

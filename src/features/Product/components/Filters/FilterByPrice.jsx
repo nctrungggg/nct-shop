@@ -8,7 +8,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import ReplayIcon from "@material-ui/icons/Replay";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import NumberFormat from "react-number-format";
 import ProductSortByPrice from "./ProductSortByPrice";
 import "./styleFilter.scss";
@@ -81,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
 
 function FilterByPrice({ filters, onChange }) {
   const classes = useStyles();
+  const replayIconRef = useRef(null);
 
   const [hide, setHide] = useState(true);
 
@@ -105,6 +106,12 @@ function FilterByPrice({ filters, onChange }) {
   };
 
   const handleResetValues = () => {
+    replayIconRef.current.classList.add("click");
+
+    setTimeout(() => {
+      replayIconRef.current.classList.remove("click");
+    }, 600);
+
     setValues({
       salePrice_gte: "",
       salePrice_lte: "",
@@ -126,8 +133,7 @@ function FilterByPrice({ filters, onChange }) {
     if (!onChange) return;
 
     if (isChecked === true) onChange(delete filters._sort);
-
-    if (isChecked === false) onChange({ _sort: newSortValue });
+    else onChange({ _sort: newSortValue });
   };
 
   return (
@@ -139,13 +145,11 @@ function FilterByPrice({ filters, onChange }) {
       <Typography variant="subtitle2">CHỌN KHOẢNG GIÁ</Typography>
 
       {hide || (
-        <Box>
-          <label htmlFor="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div className="replayIcon">
-              <ReplayIcon onClick={handleResetValues}></ReplayIcon>
-            </div>
-          </label>
+        <Box className="replayIcon">
+          <ReplayIcon
+            ref={replayIconRef}
+            onClick={handleResetValues}
+          ></ReplayIcon>
         </Box>
       )}
 

@@ -4,15 +4,15 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import PropTypes from "prop-types";
 import React from "react";
 
-FiltersSkeleton.propTypes = {
+FilterSkeleton.propTypes = {
   length: PropTypes.number,
 };
 
-FiltersSkeleton.defaultProps = {
+FilterSkeleton.defaultProps = {
   length: 12,
 };
 
-function FiltersSkeleton({ length }) {
+function FilterSkeleton({ length }) {
   return (
     <Box height={500} padding={1}>
       <Paper></Paper>
@@ -20,4 +20,4 @@ function FiltersSkeleton({ length }) {
   );
 }
 
-export default FiltersSkeleton;
+export default FilterSkeleton;

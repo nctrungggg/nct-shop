@@ -14,17 +14,17 @@ ProductFilters.defaultProps = {
 };
 
 function ProductFilters({ filters, onChange }) {
-  const handleCategoryChange = (newCategoryId) => {
+  const handleCategoryChange = (newCategoryName) => {
     if (!onChange) return;
 
     const newFilters = {
-      "category.id": newCategoryId,
+      "category.name": newCategoryName,
     };
 
     onChange(newFilters);
   };
 
-  const handleChange = ( values) => {
+  const handleChange = (values) => {
     if (onChange) onChange(values);
   };
 

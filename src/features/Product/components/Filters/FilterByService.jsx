@@ -45,9 +45,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const services = [
-  { value: "isPromotion", label: "Có Khuyến mãi" },
   { value: "isFreeShip", label: "Miễn phí vận chuyển" },
-  { value: "", label: "Rẻ hơn hoàn tiền" },
+  { value: "isPromotion", label: "Có Khuyến mãi" },
 ];
 
 function FilterByService({ filters, onChange }) {

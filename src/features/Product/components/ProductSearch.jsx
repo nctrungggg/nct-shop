@@ -8,12 +8,11 @@ ProductSearch.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   form: {
     position: "relative",
+    margin: " 0 auto",
 
     borderRadius: "20px",
     padding: " 5px 10px 5px 20px",
     border: "1px solid rgba(0,0,0,.15)",
-
-    marginLeft: theme.spacing(2),
     width: "60%",
   },
 

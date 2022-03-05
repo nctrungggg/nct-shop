@@ -31,7 +31,7 @@ function Register({ closeDialog }) {
       closeDialog();
 
       // show success message
-      enqueueSnackbar("Register successfully", {
+      enqueueSnackbar("Đăng ký thành công", {
         variant: "success",
         autoHideDuration: 1000,
       });

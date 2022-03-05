@@ -47,7 +47,7 @@ function ProductSortByPrice({ onChange }) {
 
   const [checked, setChecked] = useState([]);
 
-  const handleSortChange = (e, id) => {
+  const handleSortChange = (e, id, label) => {
     const isChecked = checked.includes(id);
 
     setChecked((prev) => {
@@ -57,9 +57,6 @@ function ProductSortByPrice({ onChange }) {
         return [id];
       }
     });
-
-    console.log(isChecked);
-    console.log("id:", checked);
 
     if (!onChange) return;
 

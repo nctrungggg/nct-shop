@@ -1,10 +1,9 @@
 import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React from "react";
 import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from "../../../constants/index";
-import { makeStyles } from "@material-ui/core/styles";
-
 Product.propTypes = {
   product: PropTypes.object,
 };
@@ -18,26 +17,36 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     position: "relative",
 
-    "&:hover": {
-      boxShadow: " rgb(0 0 0 / 10%) 0px 0px 20px",
-      zIndex: 1,
+    "&:hover img": {
+      transform: "scale(0.8)",
+      transition: "all 0.5s",
     },
   },
-
   freeShip: {
     position: "absolute",
-    top: 0,
-    right: 0,
+    top: "4px",
+    right: "4px",
 
-    backgroundColor: "#3F51B5",
-    color: "#fff",
+    color: "#3F51B5",
     padding: "3px",
-    fontSize: "12px",
+    fontSize: "13px",
   },
 
   img: {
     borderRadius: " 0.5rem",
   },
+
+  content: {
+    position: "relative",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+
+  // cart: {
+  //   position: "absolute",
+  //   top: "10px",
+  //   right: "1px",
+  // },
 }));
 
 function Product({ product }) {
@@ -48,7 +57,7 @@ function Product({ product }) {
     : THUMBNAIL_PLACEHOLDER;
 
   return (
-    <Box className={classes.root} mt={2} mb={1} padding={2}>
+    <Box className={classes.root} padding={2}>
       <Box mb={2}>
         {product.isFreeShip && (
           <Typography className={classes.freeShip} variant="body2">
@@ -56,7 +65,7 @@ function Product({ product }) {
           </Typography>
         )}
       </Box>
-      <Box paddingLeft={1} minHeight="212px">
+      <Box className={classes.boxImg} paddingLeft={1} minHeight="212px">
         <img
           className={classes.img}
           src={thumbnailUrl}
@@ -65,17 +74,24 @@ function Product({ product }) {
         />
       </Box>
 
-      <Box paddingLeft={1}>
-        <Typography variant="body2">{product.name}</Typography>
-        <Typography variant="body2">
-          <Box component="span" fontSize="16px" fontWeight="bold" mr={1}>
-            {new Intl.NumberFormat("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            }).format(product.salePrice)}
-          </Box>
-          {product.promotionPercent > 0 ? `-${product.promotionPercent}%` : ""}
-        </Typography>
+      <Box paddingLeft={1} className={classes.content}>
+        <Box>
+          <Typography variant="body2">{product.name}</Typography>
+          <Typography variant="body2">
+            <Box component="span" fontSize="16px" fontWeight="bold" mr={1}>
+              {new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              }).format(product.salePrice)}
+            </Box>
+            {product.promotionPercent > 0
+              ? `-${product.promotionPercent}%`
+              : ""}
+          </Typography>
+        </Box>
+        {/* <Box className={classes.cart}>
+          <ShoppingCartIcon />
+        </Box> */}
       </Box>
     </Box>
   );

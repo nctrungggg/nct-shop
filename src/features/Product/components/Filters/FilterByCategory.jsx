@@ -53,7 +53,7 @@ function FilterByCategory({ onChange }) {
   }, []);
 
   const handleCategoryClick = (category) => {
-    if (onChange) onChange(category.id);
+    if (onChange) onChange(category.name);
   };
 
   return (

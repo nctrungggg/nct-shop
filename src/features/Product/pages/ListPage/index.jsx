@@ -7,11 +7,14 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import Pagination from "@material-ui/lab/Pagination";
 import NotPound from "components/NotFound/index";
-import FiltersSkeleton from "features/Product/components/FiltersSkeleton";
+import FilterSkeleton from "features/Product/components/FilterSkeleton.jsx";
+import FilterViewer from "features/Product/components/FilterViewer.jsx";
 import ProductFilters from "features/Product/components/ProductFilters";
 import ProductList from "features/Product/components/ProductList";
 import ProductSearch from "features/Product/components/ProductSearch.jsx";
-import React, { useEffect, useState } from "react";
+import queryString from "query-string";
+import React, { useEffect, useMemo, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import productApi from "../../../../api/productApi.js";
 import ProductSkeletonList from "../../components/ProductSkeletonList";
 import "./style.scss";
@@ -36,6 +39,21 @@ const useStyles = makeStyles((theme) => ({
 function ListPage() {
   const classes = useStyles();
 
+  const history = useHistory();
+  const location = useLocation();
+  const queryParams = useMemo(() => {
+    const params = queryString.parse(location.search);
+
+    return {
+      ...params,
+      _page: Number.parseInt(params._page) || 1,
+      _limit: Number.parseInt(params._limit) || 8,
+      isPromotion: params.isPromotion === "true",
+      isFreeShip: params.isFreeShip === "true",
+    };
+  }, [location.search]);
+  console.log("queryParams:", queryParams);
+
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
@@ -45,20 +63,12 @@ function ListPage() {
   });
   const totalPages = Math.ceil(pagination.total / pagination.limit);
 
-  const [filters, setFilters] = useState({
-    _page: 1,
-    _limit: 8,
-  });
-  console.log("filters:", filters);
-
   useEffect(() => {
     (async () => {
       try {
-        const { data, pagination } = await productApi.getAll(filters);
-        // cập nhật danh sách sản phẩm
-        setProductList(data);
+        const { data, pagination } = await productApi.getAll(queryParams);
 
-        // cập nhật pagination
+        setProductList(data);
         setPagination(pagination);
       } catch (error) {
         console.log("ERR: ", error);
@@ -66,29 +76,60 @@ function ListPage() {
 
       setLoading(false);
     })();
-  }, [filters]);
+  }, [queryParams]);
 
   const handlePageChange = (e, page) => {
-    console.log(page);
-    setFilters((prevFilters) => ({
-      ...prevFilters,
+    // setFilters((prevFilters) => ({
+    //   ...prevFilters,
+    //   _page: page,
+    // }));
+
+    const filters = {
+      ...queryParams,
       _page: page,
-    }));
+    };
+
+    history.push({
+      pathname: history.location.pathname,
+      search: queryString.stringify(filters),
+    });
+  };
+
+  const handlePageChangeTop = (page) => {
+    const filters = {
+      ...queryParams,
+      _page: page,
+    };
+
+    history.push({
+      pathname: history.location.pathname,
+      search: queryString.stringify(filters),
+    });
   };
 
   const handleFiltersChange = (newFilters) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
+    const filters = {
+      ...queryParams,
+      _page: 1,
       ...newFilters,
-    }));
+    };
+
+    history.push({
+      pathname: history.location.pathname,
+      search: queryString.stringify(filters),
+    });
   };
 
-  const haha = (value) => {
-    console.log(value);
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      _page: value,
-    }));
+  const setNewFilters = (newFilters) => {
+    console.log(newFilters);
+    const filters = {
+      ...newFilters,
+      _page: 1,
+    };
+    history.push({
+      pathname: history.location.pathname,
+      search: queryString.stringify(filters),
+    });
   };
 
   return (
@@ -98,10 +139,10 @@ function ListPage() {
           <Grid item className="left">
             <Paper elevation={0}>
               {loading ? (
-                <FiltersSkeleton />
+                <FilterSkeleton />
               ) : (
                 <ProductFilters
-                  filters={filters}
+                  filters={queryParams}
                   onChange={handleFiltersChange}
                 />
               )}
@@ -120,19 +161,24 @@ function ListPage() {
                       <IconButton
                         color="primary"
                         disabled={pagination.page <= 1}
-                        onClick={() => haha(pagination.page - 1)}
+                        onClick={() => handlePageChangeTop(pagination.page - 1)}
                       >
                         <ArrowBackIcon />
                       </IconButton>
+
                       <IconButton
                         color="primary"
                         disabled={pagination.page >= totalPages}
-                        onClick={() => haha(pagination.page + 1)}
+                        onClick={() => handlePageChangeTop(pagination.page + 1)}
                       >
                         <ArrowForwardIcon />
                       </IconButton>
                     </Box>
                   </Box>
+                  <FilterViewer
+                    filters={queryParams}
+                    onChange={setNewFilters}
+                  />
 
                   {productList && <ProductList data={productList} />}
                   {productList.length === 0 && <NotPound />}
