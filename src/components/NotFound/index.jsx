@@ -5,18 +5,22 @@ import React from "react";
 NotFound.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: theme.spacing(15),
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(24),
+
     display: "flex",
     flexFlow: "column",
     justifyContent: "center",
     alignItems: "center",
   },
+
   title: {
     fontSize: "20px",
     marginTop: theme.spacing(2),
   },
+
   errorIcon: {
-    fontSize: "50px",
+    fontSize: "80px",
   },
 }));
 
@@ -25,7 +29,9 @@ function NotFound(props) {
   return (
     <Box className={classes.root}>
       <ErrorOutlineIcon className={classes.errorIcon} />
-      <Typography className={classes.title}>PAGE NOT FOUND</Typography>
+      <Typography className={classes.title}>
+        Rất tiếc, không tìm thấy sản phẩm phù hợp với lựa chọn của bạn
+      </Typography>
     </Box>
   );
 }

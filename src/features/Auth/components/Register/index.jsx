@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useSnackbar } from "../../../../../node_modules/notistack/dist/index";
+import { useSnackbar } from "notistack/dist/index";
 import RegisterForm from "../RegisterForm";
 
 Register.propTypes = {
@@ -34,7 +34,9 @@ function Register({ closeDialog }) {
       enqueueSnackbar("Đăng ký thành công", {
         variant: "success",
         autoHideDuration: 1000,
+
       });
+      
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }

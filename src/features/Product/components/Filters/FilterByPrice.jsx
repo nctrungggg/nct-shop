@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import React, { useRef, useState } from "react";
 import NumberFormat from "react-number-format";
 import ProductSortByPrice from "./ProductSortByPrice";
-import "./styleFilter.scss";
+import "./style.scss";
 
 FilterByPrice.propTypes = {
   onChange: PropTypes.func,

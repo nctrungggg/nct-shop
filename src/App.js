@@ -1,14 +1,12 @@
+import Footer from "components/Footer";
 import Header from "components/Header";
-import Home from "components/Home";
+import HomeFeature from "features/Home";
 import ProductFeature from "features/Product/index";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
-import "./App.css";
+import "./App.scss";
 import NotPound from "./components/NotFound";
-import AlbumFeature from "./features/Album/index";
-import CounterFeature from "./features/Counter";
-import ListCourseFeature from "./features/ListCourse";
-import TodoFeature from "./features/Todo/index";
+import CartFeature from "./features/Cart/index";
 
 function App() {
   return (
@@ -18,15 +16,14 @@ function App() {
       <Switch>
         <Redirect from=" " to=" " />
 
-        <Route path="/" exact component={Home} />
-        <Route path="/todo" component={TodoFeature} />
-        <Route path="/albums" component={AlbumFeature} />
-        <Route path="/counter" component={CounterFeature} />
-        <Route path="/course" component={ListCourseFeature} />
+        <Route path="/" component={HomeFeature} exact />
         <Route path="/products" component={ProductFeature} />
+        <Route path="/cart" component={CartFeature} />
 
         <Route component={NotPound} />
       </Switch>
+
+      {/* <Footer /> */}
     </div>
   );
 }

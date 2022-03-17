@@ -1,10 +1,16 @@
-import { Button, InputBase, Box, makeStyles } from "@material-ui/core";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Box, Button, InputBase, makeStyles } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import queryString from "query-string";
+import InputField from "components/form-controls/InputField/index";
+import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
 
-ProductSearch.propTypes = {};
+ProductSearch.propTypes = {
+  onChange: PropTypes.func,
+};
+
 const useStyles = makeStyles((theme) => ({
   form: {
     position: "relative",
@@ -28,37 +34,38 @@ const useStyles = makeStyles((theme) => ({
   },
 
   searchButton: {
-    "& > button": {
-      position: "absolute",
-      top: 0,
-      right: 0,
+    cursor: "pointer",
 
-      borderRadius: "20px",
-
-      height: "100%",
-      width: "20%",
-    },
+    position: "absolute",
+    top: " 6px",
+    right: " 20px",
   },
 }));
 
-function ProductSearch(props) {
-  const history = useHistory();
+function ProductSearch({ onChange = null }) {
   const classes = useStyles();
   const [value, setValue] = useState("");
-  const currentSearchParams = queryString.parse(history.location.search);
+
+  const schema = yup.object().shape({
+    search: yup.string().required("Please enter title"),
+  });
+
+  const form = useForm({
+    defaultValues: {
+      title: "",
+    },
+
+    resolver: yupResolver(schema),
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newSearchParams = {
-      ...currentSearchParams,
-      _page: 1,
-      name_contains: value,
-    };
-    history.push({
-      pathname: "/search",
-      search: queryString.stringify(newSearchParams),
-    });
+
+    if (onChange) onChange(value);
+
     setValue("");
   };
+
   return (
     <form onSubmit={(e) => handleSubmit(e)} className={classes.form}>
       <Box>
@@ -69,11 +76,12 @@ function ProductSearch(props) {
           onChange={(e) => setValue(e.target.value)}
         />
       </Box>
-      <Box className={classes.searchButton}>
-        <Button variant="outlined" color="primary">
-          <SearchIcon />
-        </Button>
-      </Box>
+
+      <SearchIcon
+        onClick={(e) => handleSubmit(e)}
+        color="primary"
+        className={classes.searchButton}
+      />
     </form>
   );
 }

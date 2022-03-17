@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useSnackbar } from "../../../../../node_modules/notistack/dist/index";
+import { useSnackbar } from "notistack/dist/index";
 import LoginForm from "../LoginForm/index";
 
 Login.propTypes = {

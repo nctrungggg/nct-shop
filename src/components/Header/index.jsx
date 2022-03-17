@@ -1,35 +1,36 @@
+import { Badge, Dialog, DialogContent } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import { Close } from "@material-ui/icons";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import Close from "@material-ui/icons/Close";
-import CodeIcon from "@material-ui/icons/Code";
-import Login from "features/Auth/components/Login/index";
+import HomeIcon from "@material-ui/icons/Home";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import Login from "features/Auth/components/Login";
 import Register from "features/Auth/components/Register";
-import { logout } from "features/Auth/userSlice";
+import { hideFormLogin, logout, showFormLogin } from "features/Auth/userSlice";
+import { removeAllItems } from "features/Cart/cartSlice";
+import { cartItemsCountSelector } from "features/Cart/selectors";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./style.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-  },
-
-  menuButton: {
-    marginRight: theme.spacing(2),
+    paddingBottom: theme.spacing(10),
   },
 
   title: {
+    lineHeight: 1,
     flexGrow: 1,
   },
 
@@ -49,8 +50,27 @@ const useStyles = makeStyles((theme) => ({
   },
 
   name: {
-    fontSize: "16px",
+    fontSize: "12px",
     color: "#fff",
+    fontWeight: "500",
+  },
+
+  navBar: {
+    marginRight: theme.spacing(3),
+  },
+
+  btnLogin: {
+    marginRight: theme.spacing(4),
+  },
+
+  closesButton: {
+    position: "absolute",
+    top: theme.spacing(1),
+    right: theme.spacing(1),
+
+    color: theme.palette.grey[600],
+
+    zIndex: 1,
   },
 }));
 
@@ -62,22 +82,31 @@ const MODE = {
 export default function Header() {
   const classes = useStyles();
 
+  const history = useHistory();
   const dispatch = useDispatch();
+
+  const showLogin = useSelector((state) => state.user.showLogin);
+
+  const cartItemsCount = useSelector(cartItemsCountSelector);
+
   const loggedInUser = useSelector((state) => state.user.current);
   const isLoggedIn = !!loggedInUser.id;
 
-  const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-    setMode(MODE.LOGIN);
+  const handleOpenDialog = () => {
+    const action = showFormLogin();
+    dispatch(action);
   };
 
   const handleCloseDialog = (event, reason) => {
     if (reason && reason === "backdropClick") return;
-    setOpen(false);
+
+    const action = hideFormLogin();
+    dispatch(action);
+
+    setMode(MODE.LOGIN);
   };
 
   const handleUserClick = (event) => {
@@ -90,44 +119,81 @@ export default function Header() {
 
   // handle Logout
   const handleLogoutClick = () => {
-    const action = logout();
-    dispatch(action);
+    dispatch(logout());
+    dispatch(removeAllItems());
 
     setAnchorEl(null);
   };
 
+  const handleCartClick = () => {
+    history.push({
+      pathname: "/cart",
+    });
+  };
+
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar className={classes.appBar} position="fixed">
         <Toolbar>
-          <CodeIcon className={classes.menuButton} />
-
           <Typography variant="h6" className={classes.title}>
             <Link className={classes.link} to="/">
-              NCT SHOP
+              <HomeIcon className={classes.home} fontSize="large" />
             </Link>
           </Typography>
 
+          <Box className={classes.navBar}>
+            <NavLink
+              activeClassName={classes.activeLink}
+              className={classes.link}
+              to="/products"
+            >
+              <Button color="inherit">SẢN PHẨM</Button>
+            </NavLink>
+            <NavLink
+              activeClassName={classes.activeLink}
+              className={classes.link}
+              to="/todos"
+            >
+              <Button color="inherit">LIÊN HỆ</Button>
+            </NavLink>
+          </Box>
+
           {!isLoggedIn && (
-            <Button onClick={handleClickOpen} color="inherit">
+            <Button
+              className={classes.btnLogin}
+              onClick={handleOpenDialog}
+              color="inherit"
+            >
               Đăng nhập
             </Button>
           )}
 
           {isLoggedIn && mode === MODE.REGISTER && (
-            <Button onClick={handleClickOpen} color="inherit">
+            <Button onClick={handleOpenDialog} color="inherit">
               Đăng nhập
             </Button>
           )}
 
           {isLoggedIn && mode === MODE.LOGIN && (
-            <>
-              <p className={classes.name}>{loggedInUser.fullName}</p>
+            <Box>
+              <Typography variant="span" className={classes.name}>
+                {loggedInUser.fullName.toUpperCase()}
+              </Typography>
               <IconButton color="inherit" onClick={handleUserClick}>
-                <AccountCircleIcon />
+                <AccountCircleIcon className={classes.iconName} />
               </IconButton>
-            </>
+            </Box>
           )}
+
+          <IconButton
+            aria-label="show new mails"
+            color="inherit"
+            onClick={handleCartClick}
+          >
+            <Badge badgeContent={cartItemsCount} color="secondary">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
         </Toolbar>
       </AppBar>
 
@@ -154,11 +220,14 @@ export default function Header() {
       <Dialog
         maxWidth="xs"
         disableEscapeKeyDown
-        open={open}
+        open={showLogin}
         onClose={handleCloseDialog}
         aria-labelledby="form-dialog-title"
       >
-        <IconButton onClick={handleCloseDialog} className={classes.closeButton}>
+        <IconButton
+          onClick={handleCloseDialog}
+          className={classes.closesButton}
+        >
           <Close />
         </IconButton>
 

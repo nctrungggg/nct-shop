@@ -7,12 +7,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import PasswordField from "components/form-controls/passwordField";
+import PasswordField from "components/form-controls/PasswordField";
 import PropTypes from "prop-types";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import InputField from "../../../../components/form-controls/inputField";
+import InputField from "../../../../components/form-controls/InputField";
 
 RegisterForm.propTypes = {
   onSubmit: PropTypes.func,

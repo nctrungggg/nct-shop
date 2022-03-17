@@ -37,11 +37,19 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     current: JSON.parse(localStorage.getItem(StorageKeys.USER)) || {},
-    settings: {},
+    showLogin: false,
   },
 
   // Các action bình thường (sync action)
   reducers: {
+    showFormLogin(state) {
+      state.showLogin = true;
+    },
+
+    hideFormLogin(state) {
+      state.showLogin = false;
+    },
+
     logout(state) {
       // clear local storage
       localStorage.removeItem(StorageKeys.KEY);
@@ -65,6 +73,7 @@ const userSlice = createSlice({
 });
 
 const { actions, reducer } = userSlice;
-export const { logout } = actions;
+
+export const { showFormLogin, hideFormLogin, logout } = actions;
 
 export default reducer;
