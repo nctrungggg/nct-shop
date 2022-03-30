@@ -12,13 +12,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import QuantityField from "components/Form-controls/QuantityField";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
-import QuantityField from "../../../components/form-controls/QuantityField";
 import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from "../../../constants/index";
 import { formatPrice } from "../../../utils";
 import { removeFromCart, setQuantity } from "../cartSlice";
@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "row nowrap",
     alignItems: "center",
     borderBottom: `1px solid ${theme.palette.grey[300]}`,
+
   },
   img: {
     width: "150px",
@@ -62,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 
   totalPrice: {
     "& > span": {
-      fontWeight: "bold",
+      fontWeight: "600",
       fontSize: "18px",
     },
   },
@@ -131,12 +132,12 @@ function CartProduct({ cart = {} }) {
         </Box>
 
         <Box className={classes.name}>
-          <Typography>{cart.product.name} </Typography>
+          <p>{cart.product.name} </p>
         </Box>
 
-        <Typography className={classes.price}>
+        <p className={classes.price}>
           {formatPrice(cart.product.salePrice)}
-        </Typography>
+        </p>
 
         <Box className={classes.quantity}>
           <QuantityField
@@ -146,9 +147,9 @@ function CartProduct({ cart = {} }) {
             item={cart}
           />
         </Box>
-        <Typography className={classes.totalPrice}>
+        <p className={classes.totalPrice}>
           Thành tiền: <span>{`${formatPrice(totalPrice)}`}</span>
-        </Typography>
+        </p>
 
         <Box className={classes.iconDelete}>
           <IconButton onClick={() => setOpenDialog(true)}>

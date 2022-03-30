@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, InputBase, makeStyles } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import InputField from "components/form-controls/InputField/index";
+import InputField from "components/Form-controls/InputField/index";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
     border: "0",
     width: "100%",
     backgroundColor: "#fff",
+    fontSize: "14px",
+    fontFamily: "Poppins, sans-serif",
 
     "&:hover .form": {
       border: "1px solid red",

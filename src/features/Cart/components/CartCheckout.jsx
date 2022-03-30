@@ -43,12 +43,13 @@ const useStyles = makeStyles((theme) => ({
 
   totalPrice: {
     margin: theme.spacing(3, 0),
+    
     "& > span": {
       marginLeft: theme.spacing(2),
       color: "#3f51b5",
 
       fontSize: "32px",
-      fontWeight: "bold",
+      fontWeight: "600",
     },
   },
 
@@ -73,31 +74,29 @@ function CartCheckout({ total }) {
   const customer = JSON.parse(localStorage.getItem("user"));
   return (
     <Box className={classes.root}>
-      <Typography className={classes.customer}>
+      <p className={classes.customer}>
         Khách hàng: <span>{customer.fullName.toUpperCase()}</span>
-      </Typography>
+      </p>
 
-      <Typography className={classes.customer}>
+      <p className={classes.customer}>
         Email: <span>{customer.email}</span>
-      </Typography>
+      </p>
 
       <Box className={classes.sale}>
         <IconButton color="primary">
           <ConfirmationNumberOutlinedIcon />
         </IconButton>
-        <Typography>Chọn hoặc nhập mã khuyến mãi </Typography>
+        <p>Chọn hoặc nhập mã khuyến mãi </p>
       </Box>
 
       <Box className={classes.price}>
-        <Typography className={classes.titlePrice}>
-          Tạm tính: {formatPrice(total)}{" "}
-        </Typography>
+        <p className={classes.titlePrice}>Tạm tính: {formatPrice(total)} </p>
 
-        <Typography className={classes.titlePrice}>Giảm giá: 0 ₫ </Typography>
+        <p className={classes.titlePrice}>Giảm giá: 0 ₫ </p>
 
-        <Typography className={classes.totalPrice}>
+        <p className={classes.totalPrice}>
           Tổng cộng: <span>{formatPrice(total)}</span>
-        </Typography>
+        </p>
       </Box>
 
       <Button

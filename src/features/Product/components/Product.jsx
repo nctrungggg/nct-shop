@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { formatPrice } from "utils";
+import "./Product.scss";
 
 Product.propTypes = {
   product: PropTypes.object,
@@ -16,15 +17,8 @@ Product.defaultProps = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    cursor: "pointer",
-    position: "relative",
+  root: {},
 
-    "&:hover img": {
-      transform: "scale(0.8)",
-      transition: "all 0.5s",
-    },
-  },
   freeShip: {
     position: "absolute",
     top: "4px",
@@ -32,11 +26,12 @@ const useStyles = makeStyles((theme) => ({
 
     color: "#3F51B5",
     padding: "3px",
-    fontSize: "13px",
+    fontSize: "12px",
+    fontFamily: "Poppins, sans-serif",
   },
-
-  img: {
-    borderRadius: " 0.5rem",
+  name: {
+    fontSize: "14px",
+    fontFamily: "Poppins, sans-serif",
   },
 
   content: {
@@ -67,34 +62,25 @@ function Product({ product }) {
     : THUMBNAIL_PLACEHOLDER;
 
   return (
-    <Box className={classes.root} padding={2} onClick={handleClick}>
+    <Box className="product" padding={2} onClick={handleClick}>
       <Box mb={2}>
-        {product.isFreeShip && (
-          <Typography className={classes.freeShip} variant="body2">
-            FreeShip
-          </Typography>
-        )}
+        {product.isFreeShip && <p className={classes.freeShip}>Free ship</p>}
       </Box>
-      <Box className={classes.boxImg} paddingLeft={1} minHeight="212px">
-        <img
-          className={classes.img}
-          src={thumbnailUrl}
-          alt={product.name}
-          width="100%"
-        />
-      </Box>
+      <div className="product-thumbnail" paddingLeft={1}>
+        <img src={thumbnailUrl} alt={product.name} width="100%" />
+      </div>
 
       <Box paddingLeft={1} className={classes.content}>
         <Box>
-          <Typography variant="body2">{product.name}</Typography>
-          <Typography variant="body2">
-            <Box component="span" fontSize="16px" fontWeight="bold" mr={1}>
+          <p className="product__title">{product.name}</p>
+          <p>
+            <Box component="span" fontSize="16px" fontWeight="600" mr={1}>
               {formatPrice(product.salePrice)}
             </Box>
             {product.promotionPercent > 0
               ? `-${product.promotionPercent}%`
               : ""}
-          </Typography>
+          </p>
         </Box>
         {/* <Box className={classes.cart}>
           <ShoppingCartIcon />

@@ -5,7 +5,7 @@ import React from "react";
 NotFound.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: theme.spacing(10),
+    paddingTop: theme.spacing(20),
     paddingBottom: theme.spacing(24),
 
     display: "flex",
@@ -30,7 +30,7 @@ function NotFound(props) {
     <Box className={classes.root}>
       <ErrorOutlineIcon className={classes.errorIcon} />
       <Typography className={classes.title}>
-        Rất tiếc, không tìm thấy sản phẩm phù hợp với lựa chọn của bạn
+        Rất tiếc, không tìm thấy kết quả phù hợp với lựa chọn của bạn
       </Typography>
     </Box>
   );

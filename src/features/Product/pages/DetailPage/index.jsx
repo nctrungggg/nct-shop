@@ -32,6 +32,7 @@ import useProductDetail from "../../hooks/useProductDetail";
 DetailPage.propTypes = {};
 
 const useStyles = makeStyles((theme) => ({
+  root: { marginBottom: theme.spacing(10) },
   left: {
     width: "40%",
     padding: theme.spacing(2),
@@ -51,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   breadcrumbs: {
-    marginLeft: "60px",
     marginBottom: theme.spacing(2),
 
     "& > ol >  li": {
@@ -88,7 +88,7 @@ function DetailPage(props) {
 
   const { product, loading } = useProductDetail(productId);
 
-  const handleAddToCart = ({ quantity }) => {
+  const handleAddToCartSubmit = ({ quantity }) => {
     const action = addToCart({
       id: product.id,
       product,
@@ -107,8 +107,8 @@ function DetailPage(props) {
   }
 
   return (
-    <Box >
-      <Breadcrumbs
+    <Box className={classes.root}>
+      {/* <Breadcrumbs
         separator={<NavigateNextIcon fontSize="small" />}
         aria-label="breadcrumb"
         className={classes.breadcrumbs}
@@ -122,9 +122,9 @@ function DetailPage(props) {
         <Typography className={classes.textBread} color="textPrimary">
           {product.category.name}
         </Typography>
-      </Breadcrumbs>
+      </Breadcrumbs> */}
 
-      <Container>
+      <div>
         <Paper elevation={0}>
           <Grid container>
             <Grid item className={classes.left}>
@@ -133,7 +133,7 @@ function DetailPage(props) {
 
             <Grid item className={classes.right}>
               <ProductInfo product={product} />
-              <AddToCartForm onSubmit={handleAddToCart} />
+              <AddToCartForm onSubmit={handleAddToCartSubmit} />
             </Grid>
           </Grid>
         </Paper>
@@ -163,7 +163,7 @@ function DetailPage(props) {
             </Switch>
           </Paper>
         </Box>
-      </Container>
+      </div>
     </Box>
   );
 }

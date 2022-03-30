@@ -6,7 +6,6 @@ const cartSlice = createSlice({
     showMiniCart: false,
     cartItems: JSON.parse(localStorage.getItem("cart_items")) || [],
   },
-
   reducers: {
     showMiniCart(state) {
       state.showMiniCart = true;
@@ -30,10 +29,10 @@ const cartSlice = createSlice({
       }
     },
 
-    removeAllItems(state, action) {
-      localStorage.removeItem("cart_items");
-
+    removeAllItems(state) {
       state.cartItems = [];
+
+      localStorage.removeItem("cart_items");
     },
 
     setQuantity(state, action) {

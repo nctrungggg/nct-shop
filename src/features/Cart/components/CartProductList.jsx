@@ -12,16 +12,28 @@ CartProductList.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2, 2),
+
+    position: "relative",
   },
 
   title: {
     fontWeight: "500",
+    fontSize: "24px",
+
+    "& > span": {
+      fontSize: "16px",
+    },
   },
 
   listProduct: {
     padding: 0,
     margin: 0,
     listStyle: "none",
+  },
+  backProduct: {
+    fontFamily: "Poppins, sans-serif",
+    fontSize: "14px",
+    textTransform: "none",
   },
 }));
 
@@ -37,9 +49,9 @@ function CartProductList({ count }) {
 
   return (
     <Box className={classes.root}>
-      <Typography variant="h6" className={classes.title}>
-        Giỏ hàng ({`${count || "chưa có"} sản phẩm`})
-      </Typography>
+      <p className={classes.title}>
+        Giỏ hàng <span>({`${count || "chưa có"} sản phẩm`})</span>
+      </p>
 
       {!count && (
         <Box pt={2}>

@@ -7,8 +7,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import InputField from "components/form-controls/InputField";
-import PasswordField from "components/form-controls/PasswordField";
+import InputField from "components/Form-controls/InputField";
+import PasswordField from "components/Form-controls/PasswordField";
 import PropTypes from "prop-types";
 import React from "react";
 import { useForm } from "react-hook-form";

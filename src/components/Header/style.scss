@@ -1,7 +1,98 @@
-.nav {
-  margin-right: 30px;
+$box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+
+
+button {
+  display: inline-block;
+  border-radius: 0px;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  padding: 0;
 }
 
-.active-menu button {
-  color: rgb(242, 83, 109);
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  transition: 0.5s ease;
+  height: 100px;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+  .container {
+    height: 100%;
+  }
+
+  &.shrink {
+    box-shadow: $box-shadow;
+    z-index: 100;
+    background-color: #f7f7f7;
+    height: 80px;
+  }
+
+  .nav-bar {
+    height: 100%;
+    padding: 0 4rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .btn-link {
+      font-size: 16px;
+      margin-right: 32px;
+      color: #343a40;
+      font-family: "Poppins", sans-serif;
+    }
+    .btn-link:last-child {
+      margin-right: 0;
+    }
+
+    &__left {
+      line-height: 48px;
+
+      a.active-link {
+        color: #4263eb;
+        font-weight: 600;
+      }
+    }
+
+    &__right {
+      .btn-login {
+        font-size: 16px;
+        color: #343a40;
+        font-family: "Poppins", sans-serif;
+        margin-right: 10px;
+      }
+
+      .btn-cart {
+        margin-right: -12px;
+      }
+    }
+  }
+}
+.account {
+  display: inline-block;
+  & > span {
+    line-height: 48px;
+    font-weight: 500;
+  }
+  &__icon {
+    padding: 0;
+  }
 }

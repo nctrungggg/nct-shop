@@ -18,7 +18,12 @@ QuantityField.propTypes = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    "&  p ": {
+      fontFamily: "Poppins, sans-serif",
+      fontSize: "16px",
+    },
+  },
 
   box: {
     display: "flex",
@@ -34,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
       height: "10px",
 
       textAlign: "center",
+      fontFamily: "Poppins, sans-serif",
     },
   },
 }));

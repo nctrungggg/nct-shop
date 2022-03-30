@@ -25,6 +25,9 @@ import "./style.scss";
 ListPage.propTypes = {};
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    marginBottom: theme.spacing(10)
+  },
   boxSearch: {
     display: "flex",
 
@@ -44,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     "&  span": {
       fontSize: "20px",
       fontWeight: "500",
+      fontFamily: "Poppins, sans-serif",
 
       marginLeft: theme.spacing(1),
     },
@@ -55,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   breadcrumbs: {
-    marginLeft: "60px",
     marginBottom: theme.spacing(2),
 
     "& > ol >  li": {
@@ -212,7 +215,7 @@ function ListPage() {
       ...queryParams,
       _page: 1,
     };
-    
+
     history.push({
       pathname: history.location.pathname,
       search: queryString.stringify(filters),
@@ -220,8 +223,8 @@ function ListPage() {
   };
 
   return (
-    <Box >
-      <Breadcrumbs
+    <Box className={classes.root}>
+      {/* <Breadcrumbs
         aria-label="breadcrumb"
         separator={<NavigateNextIcon fontSize="small" />}
         className={classes.breadcrumbs}
@@ -233,8 +236,8 @@ function ListPage() {
         <Typography className={classes.textBread} color="textPrimary">
           Sản phẩm
         </Typography>
-      </Breadcrumbs>
-      <Container>
+      </Breadcrumbs> */}
+      <div>
         <Grid container>
           <Grid item className="left">
             <Paper elevation={0}>
@@ -281,13 +284,10 @@ function ListPage() {
 
                   {queryParams["name_contains"] && (
                     <Box className={classes.searchResults} ml={2} mt={2}>
-                      <Typography
-                        className={classes.searchTitle}
-                        variant="subtitle1"
-                      >
+                      <p className={classes.searchTitle}>
                         Kết quả tìm kiếm cho:
                         <span>{queryParams["name_contains"]}</span>
-                      </Typography>
+                      </p>
 
                       <Box className={classes.IconSearch}>
                         <CancelIcon onClick={handleDeleteSearchResult} />
@@ -316,7 +316,7 @@ function ListPage() {
             </Paper>
           </Grid>
         </Grid>
-      </Container>
+      </div>
     </Box>
   );
 }

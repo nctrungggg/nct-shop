@@ -17,11 +17,14 @@ const useStyles = makeStyles((theme) => ({
   },
 
   name: {
-    textTransform: "uppercase",
+    fontFamily: "Poppins, sans-serif",
+    fontWeight: "500",
   },
 
   description: {
     margin: theme.spacing(2, 0),
+    fontSize: "14px",
+    lineHeight: "1.8",
   },
 
   priceBox: {
@@ -44,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   promotionPercent: {
+    marginTop: theme.spacing(3),
     fontWeight: "400",
     border: "1px solid #3F51B5",
     borderRadius: "2px",
@@ -51,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "18px",
     fontSize: " 14px",
     padding: "0px 4px",
+    fontFamily: "Poppins, sans-serif",
   },
 
   freeShip: {
@@ -58,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 
     fontWeight: "500",
     fontSize: "12px",
+    fontFamily: "Poppins, sans-serif",
 
     marginTop: theme.spacing(2),
   },
@@ -69,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     "& > span": {
       marginLeft: theme.spacing(1),
 
-      fontSize: "14px",
+      fontSize: "12px",
       lineHeight: "21px",
       color: "rgb(120, 120, 120)",
     },
@@ -83,6 +89,8 @@ const useStyles = makeStyles((theme) => ({
   option: {
     display: "flex",
     flexFlow: "row nowrap",
+    fontFamily: "Poppins, sans-serif",
+    marginBottom: theme.spacing(4),
   },
 
   optionProduct: {
@@ -99,6 +107,7 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid transparent",
     outline: "0px",
     borderRadius: "4px",
+    fontFamily: "Poppins, sans-serif",
 
     "&:hover": {
       border: " 1px solid rgb(13, 92, 182)",
@@ -118,14 +127,17 @@ const useStyles = makeStyles((theme) => ({
 
   optionLabel: {
     margin: "6px 20px",
+    fontFamily: "Poppins, sans-serif",
   },
 
   buttonOptions: {
+    fontFamily: "Poppins, sans-serif",
     cursor: "pointer",
     margin: " 8px 10px 0px 0px",
     padding: " 8px",
     color: "rgb(36, 36, 36)",
     fontSize: "13px",
+
     minWidth: "80px",
     position: "relative",
     backgroundColor: " rgb(242, 242, 242)",
@@ -172,9 +184,7 @@ function ProductInfo({ product }) {
         <span> Đã bán 1000+</span>
       </Box>
 
-      <Typography variant="body2" className={classes.description}>
-        {shortDescription}
-      </Typography>
+      <p className={classes.description}>{shortDescription}</p>
 
       <Box className={classes.priceBox}>
         <Box component="span" className={classes.salePrice}>

@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
   label: {
     "& >span": {
-      fontSize: "0.875rem",
+      fontSize: "14px",
+      fontFamily: "Poppins, sans-serif",
     },
   },
 }));

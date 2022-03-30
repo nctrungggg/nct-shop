@@ -17,6 +17,15 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 0),
     listStyleType: "none",
 
+    "& .MuiChip-root": {
+      fontSize: "14px",
+      fontFamily: "Poppins, sans-serif",
+
+      "& > span": {
+        lineHeight: "20px",
+      },
+    },
+
     "& > li": {
       margin: 0,
       padding: theme.spacing(0, 0, 0, 2),

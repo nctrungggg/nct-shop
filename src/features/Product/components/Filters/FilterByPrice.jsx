@@ -56,6 +56,14 @@ const useStyles = makeStyles((theme) => ({
     borderTop: `2px solid ${theme.palette.grey[300]}`,
   },
 
+  title: {
+    fontWeight: "500",
+  },
+  priceRange: {
+    fontWeight: "500",
+    fontSize: "14px",
+  },
+
   range: {
     display: "flex",
     flexGrow: "row nowrap",
@@ -68,6 +76,10 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
     },
+    "& .MuiInputBase-root": {
+      fontSize: "14px",
+      fontFamily: "Poppins, sans-serif",
+    },
   },
 
   checkbox: {
@@ -76,6 +88,12 @@ const useStyles = makeStyles((theme) => ({
     "&:checked + replayIcon": {
       transform: "rotate(180deg)",
     },
+  },
+  btn: {
+    textTransform: "none",
+    fontSize: "14px",
+    fontWeight: "500",
+    fontFamily: "Poppins, sans-serif",
   },
 }));
 
@@ -138,11 +156,11 @@ function FilterByPrice({ filters, onChange }) {
 
   return (
     <Box className={classes.root}>
-      <Typography variant="subtitle2">GIÁ</Typography>
+      <p className={classes.title}>Giá</p>
 
       <ProductSortByPrice onChange={handleSortChange} />
 
-      <Typography variant="subtitle2">CHỌN KHOẢNG GIÁ</Typography>
+      <p className={classes.priceRange}>Chọn khoảng giá</p>
 
       {hide || (
         <Box className="replayIcon">
@@ -153,8 +171,9 @@ function FilterByPrice({ filters, onChange }) {
         </Box>
       )}
 
-      <Box className={classes.range}>
+      <div className={classes.range}>
         <TextField
+          className={classes.number}
           name="salePrice_gte"
           size="small"
           placeholder="0"
@@ -181,13 +200,14 @@ function FilterByPrice({ filters, onChange }) {
             endAdornment: <InputAdornment position="end">₫</InputAdornment>,
           }}
         />
-      </Box>
+      </div>
       <Button
         disabled={hide}
         variant="outlined"
         color="primary"
         size="small"
         onClick={handleSubmit}
+        className={classes.btn}
       >
         Áp dụng
       </Button>

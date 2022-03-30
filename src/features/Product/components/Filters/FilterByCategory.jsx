@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
   },
+  title: {
+    fontWeight: "500",
+  },
+  category: {
+    fontSize: "14px",
+  },
 
   menu: {
     padding: 0,
@@ -28,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
       right: 0,
 
       "  &:hover": {
+        fontWeight: "500",
         right: "-6px",
         color: theme.palette.primary.dark,
         cursor: "pointer",
@@ -58,7 +65,7 @@ function FilterByCategory({ onChange }) {
 
   return (
     <Box className={classes.root}>
-      <Typography variant="subtitle2">DANH MỤC SẢN PHẨM</Typography>
+      <p className={classes.title}>Danh mục sản phẩm</p>
       <ul className={classes.menu}>
         {categoryList.map((category) => (
           <li
@@ -67,7 +74,7 @@ function FilterByCategory({ onChange }) {
               handleCategoryClick(category);
             }}
           >
-            <Typography variant="body2">{category.name}</Typography>
+            <p className={classes.category}>{category.name}</p>
           </li>
         ))}
       </ul>

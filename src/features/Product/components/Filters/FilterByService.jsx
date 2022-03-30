@@ -18,11 +18,18 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     borderTop: `2px solid ${theme.palette.grey[300]}`,
   },
-
+  title: {
+    fontWeight: "500",
+  },
   list: {
     padding: 0,
     margin: 0,
     listStyleType: "none",
+
+    "& .MuiTypography-root ": {
+      fontSize: "14px",
+      fontFamily: "Poppins, sans-serif",
+    },
 
     "& > li": {
       margin: 0,
@@ -61,7 +68,7 @@ function FilterByService({ filters, onChange }) {
 
   return (
     <Box className={classes.root}>
-      <Typography variant="subtitle2">DỊCH VỤ</Typography>
+      <p className={classes.title}>Dịch vụ</p>
 
       <ul className={classes.list}>
         {services.map((service) => (

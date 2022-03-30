@@ -15,8 +15,10 @@ import { cartItemsCountSelector, cartTotalSelector } from "./selectors";
 
 CartFeature.propTypes = {};
 const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(4, 0),
+  root: { marginTop: "140px", marginBottom: "100px" },
+
+  container: {
+    position: "relative",
   },
 
   left: {
@@ -25,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   right: {
+    position: "sticky",
+    top: "0",
     width: "28%",
   },
 
@@ -50,15 +54,17 @@ const useStyles = makeStyles((theme) => ({
 
 function CartFeature(props) {
   const classes = useStyles();
+
   const cartTotalPrice = useSelector(cartTotalSelector);
   const cartItemsCount = useSelector(cartItemsCountSelector);
+
   const currentUserId = useSelector((state) => state.user.current?.id);
   return (
     <>
       {currentUserId ? (
-        <Box lassName={classes.root}>
-          <Container>
-            <Grid container>
+        <Box className={classes.root}>
+          <div>
+            <Grid container className={classes.container}>
               <Grid item className={classes.left}>
                 <Paper elevation={0}>
                   <CartProductList count={cartItemsCount} />
@@ -71,7 +77,7 @@ function CartFeature(props) {
                 </Paper>
               </Grid>
             </Grid>
-          </Container>
+          </div>
         </Box>
       ) : (
         <Box className={classes.warning}>

@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "@material-ui/core";
-import QuantityField from "components/form-controls/QuantityField";
+import { Button, makeStyles } from "@material-ui/core";
+import QuantityField from "components/Form-controls/QuantityField";
 import { showFormLogin } from "features/Auth/userSlice";
 import { useSnackbar } from "notistack/dist/index";
 import PropTypes from "prop-types";
@@ -13,7 +13,21 @@ AddToCartForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
+const useStyles = makeStyles((theme) => ({
+  btn: {
+    fontFamily: "Poppins, sans-serif",
+    fontSize: "16px",
+    fontWeight: "500",
+    textTransform: "none",
+  },
+  quantity: {
+    fontFamily: "Poppins, sans-serif",
+  },
+}));
+
 function AddToCartForm({ onSubmit = null }) {
+  const classes = useStyles();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const dispatch = useDispatch();
@@ -60,8 +74,14 @@ function AddToCartForm({ onSubmit = null }) {
   return (
     <>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <QuantityField form={form} name="quantity" label="Số lượng" />
+        <QuantityField
+          className={classes.quantity}
+          form={form}
+          name="quantity"
+          label="Số lượng"
+        />
         <Button
+          className={classes.btn}
           type="submit"
           fullWidth
           variant="contained"

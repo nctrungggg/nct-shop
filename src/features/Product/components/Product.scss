@@ -1,0 +1,28 @@
+.product {
+  cursor: pointer;
+  position: relative;
+  &:hover {
+    box-shadow: 0px 5px 10px #c3c3c361;
+  }
+
+  &:hover img {
+    transform: scale(0.8);
+  }
+  &:hover .MuiBox-root {
+    color: #3b5bdb;
+  }
+}
+
+.product-thumbnail {
+  position: relative;
+  border-radius: 1.2rem;
+  transition: all 0.5s;
+  min-width: 100px;
+
+  & > img {
+    border-radius: 1.2rem;
+    width: 100%;
+    transition: all 0.5s;
+    object-fit: cover;
+  }
+}

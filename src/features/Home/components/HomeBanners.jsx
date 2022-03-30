@@ -1,47 +1,51 @@
+import { Button } from "@material-ui/core";
+import AOS from "aos";
 import React from "react";
-import PropTypes from "prop-types";
-import { Box, Button, makeStyles } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import "./HomeBanners.scss";
+
+AOS.init({
+  duration: 1200,
+});
 
 HomeBanners.propTypes = {};
 
-const useStyles = makeStyles((theme) => ({
-  banner: {
-    position: "relative",
-  },
-  btn: {
-    position: "absolute",
-    left: "120px",
-    top: "200px",
-  },
-}));
-
 function HomeBanners(props) {
-  const classes = useStyles();
   const history = useHistory();
 
   const handleClickToProduct = () => {
     history.push("/products");
   };
   return (
-    <Box>
-      <Box className={classes.banner}>
-        <img
-          src="https://binhminhvn.net/wp-content/uploads/2021/04/213-2136825_mac-model-banner-apple-mac-pro-banners-hd.png"
-          width="100%"
-          alt=""
-        />
-        <Box className={classes.btn}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleClickToProduct}
-          >
-            Mua ngay
-          </Button>
-        </Box>
-      </Box>
-    </Box>
+    <div className="banner">
+      <div className="banner-left" data-aos="fade-right">
+        <h1>
+          Mua sắm giúp chúng ta xả <span>stress </span> mỗi ngày
+        </h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt cumque
+          aliquam debitis porro tenetur voluptatibus, culpa ducimus. Possimus
+          quidem illum veniam voluptatum temporibus cupiditate exercitationem
+          blanditiis. Minus non magnam magni.
+        </p>
+
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={handleClickToProduct}
+        >
+          Mua ngay nào
+        </Button>
+      </div>
+      <div className="banner-right" data-aos="fade-left">
+        <div className="banner-img">
+          <img
+            src="https://images.pexels.com/photos/4132651/pexels-photo-4132651.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 
