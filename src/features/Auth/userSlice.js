@@ -42,14 +42,6 @@ const userSlice = createSlice({
 
   // Các action bình thường (sync action)
   reducers: {
-    showFormLogin(state) {
-      state.showLogin = true;
-    },
-
-    hideFormLogin(state) {
-      state.showLogin = false;
-    },
-
     logout(state) {
       // clear local storage
       localStorage.removeItem(StorageKeys.KEY);

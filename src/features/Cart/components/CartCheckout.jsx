@@ -40,10 +40,15 @@ const useStyles = makeStyles((theme) => ({
   price: {
     color: theme.palette.grey[500],
   },
+  btnCart: {
+    fontFamily: "Poppins, sans-serif",
+    fontSize: "18px",
+    textTransform: "none",
+  },
 
   totalPrice: {
     margin: theme.spacing(3, 0),
-    
+
     "& > span": {
       marginLeft: theme.spacing(2),
       color: "#3f51b5",
@@ -105,6 +110,7 @@ function CartCheckout({ total }) {
         variant="contained"
         color="primary"
         size="large"
+        className={classes.btnCart}
       >
         Mua ngay
       </Button>

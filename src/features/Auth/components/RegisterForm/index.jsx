@@ -22,7 +22,6 @@ function RegisterForm(props) {
   const useStyles = makeStyles((theme) => ({
     root: {
       position: "relative",
-      paddingTop: theme.spacing(2),
     },
 
     avatar: {
@@ -31,11 +30,16 @@ function RegisterForm(props) {
     },
 
     title: {
-      margin: theme.spacing(2, 0, 2, 0),
+      fontSize: "28px",
+      marginBottom: theme.spacing(2),
+      fontFamily: "Poppins, sans-serif",
       textAlign: "center",
     },
 
     submit: {
+      fontSize: "16px",
+      textTransform: "none",
+      fontFamily: "Poppins, sans-serif",
       margin: theme.spacing(4, 0, 2, 0),
     },
 
@@ -54,27 +58,27 @@ function RegisterForm(props) {
   const schema = yup.object().shape({
     fullName: yup
       .string()
-      .required("Please enter your full name")
+      .required("Vui lòng nhập tên đầy đủ")
       .test(
-        "Should has at least two words",
-        "Please enter at least two words",
+        "Vui lòng nhập ít nhất 2 từ",
+        "Vui lòng nhập ít nhất 2 từ",
         (value) => {
           return value.split(" ").length >= 2;
         }
       ),
     email: yup
       .string()
-      .required("Please enter your email")
-      .email("Please enter a valid email address"),
+      .required("Vui lòng nhập email")
+      .email("Email không hợp lệ"),
 
     password: yup
       .string()
-      .required("Please enter your password")
-      .min(6, "Please enter at least 6 characters"),
+      .required("Vui lòng nhập mật khẩu")
+      .min(6, "Mật khẩu tối thiểu 6 ký tự"),
     retypePassword: yup
       .string()
-      .required("Please retype your password")
-      .oneOf([yup.ref("password")], "Password does not match"),
+      .required("Vui lòng nhập lại mật khẩu")
+      .oneOf([yup.ref("password")], "Mật khẩu không hợp lệ"),
   });
 
   const form = useForm({
@@ -98,19 +102,16 @@ function RegisterForm(props) {
     <div className={classes.root}>
       {isSubmitting && <LinearProgress className={classes.progress} />}
 
-      <Avatar className={classes.avatar}>
-        <LockOutlinedIcon />
-      </Avatar>
       <Typography className={classes.title} component="h3" variant="h5">
         Đăng ký tài khoản
       </Typography>
       <form className={classes.form} onSubmit={form.handleSubmit(handleSubmit)}>
-        <InputField name="fullName" label="Full Name" form={form} />
+        <InputField name="fullName" label="Tên đầy đủ" form={form} />
         <InputField name="email" label="Email" form={form} />
-        <PasswordField name="password" label="Password" form={form} />
+        <PasswordField name="password" label="Mật khẩu" form={form} />
         <PasswordField
           name="retypePassword"
-          label="Retype Password"
+          label="Nhập lại mật khẩu"
           form={form}
         />
         <Button

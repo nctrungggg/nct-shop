@@ -29,8 +29,6 @@ export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const showLogin = useSelector((state) => state.user.showLogin);
-
   const cartItemsCount = useSelector(cartItemsCountSelector);
 
   const loggedInUser = useSelector((state) => state.user.current);
@@ -38,20 +36,6 @@ export default function Header() {
 
   const [mode, setMode] = useState(MODE.LOGIN);
   const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleOpenDialog = () => {
-    const action = showFormLogin();
-    dispatch(action);
-  };
-
-  const handleCloseDialog = (event, reason) => {
-    if (reason && reason === "backdropClick") return;
-
-    const action = hideFormLogin();
-    dispatch(action);
-
-    setMode(MODE.LOGIN);
-  };
 
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,6 +63,7 @@ export default function Header() {
         variant: "info",
         autoHideDuration: 2000,
       });
+
       history.push({
         pathname: "/login",
       });
@@ -86,13 +71,12 @@ export default function Header() {
   };
 
   const headerRef = useRef(null);
-  console.log(headerRef);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (
-        document.body.scrollTop > 80 ||
-        document.documentElement.scrollTop > 80
+        document.body.scrollTop > 100 ||
+        document.documentElement.scrollTop > 100
       ) {
         headerRef.current?.classList.add("shrink");
       } else {
@@ -133,16 +117,6 @@ export default function Header() {
         </div>
         <div className="nav-bar__right">
           {!isLoggedIn && (
-            // <button className="btn btn-login" onClick={handleOpenDialog}>
-            //   Đăng nhập
-            // </button>
-            <button className="btn btn-login" onClick={handleLogin}>
-              Đăng nhập
-            </button>
-          )}
-
-          {isLoggedIn && mode === MODE.REGISTER && (
-            // <button onClick={handleOpenDialog}>Đăng nhập</button>
             <button className="btn btn-login" onClick={handleLogin}>
               Đăng nhập
             </button>
@@ -192,52 +166,6 @@ export default function Header() {
         <MenuItem onClick={handleCloseMenu}>Tài khoản của tôi</MenuItem>
         <MenuItem onClick={handleLogoutClick}>Đăng xuất</MenuItem>
       </Menu>
-
-      <Dialog
-        maxWidth="xs"
-        disableEscapeKeyDown
-        open={showLogin}
-        onClose={handleCloseDialog}
-        aria-labelledby="form-dialog-title"
-      >
-        <IconButton onClick={handleCloseDialog}>
-          <Close />
-        </IconButton>
-
-        {/* <DialogContent>
-          {mode === MODE.REGISTER && (
-            <>
-              <Register closeDialog={handleCloseDialog} />
-
-              <Box textAlign="center">
-                <Button
-                  size="small"
-                  color="primary"
-                  onClick={() => setMode(MODE.LOGIN)}
-                >
-                  Đã có tài khoản? Đăng nhập
-                </Button>
-              </Box>
-            </>
-          )}
-
-          {mode === MODE.LOGIN && (
-            <>
-              <Login closeDialog={handleCloseDialog} />
-
-              <Box textAlign="center">
-                <Button
-                  size="small"
-                  color="primary"
-                  onClick={() => setMode(MODE.REGISTER)}
-                >
-                  Chưa có tài khoản? Đăng ký
-                </Button>
-              </Box>
-            </>
-          )}
-        </DialogContent> */}
-      </Dialog>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
-
+import { useHistory } from "react-router-dom";
 AddToCartForm.propTypes = {
   onSubmit: PropTypes.func,
 };
@@ -29,8 +29,7 @@ function AddToCartForm({ onSubmit = null }) {
   const classes = useStyles();
 
   const { enqueueSnackbar } = useSnackbar();
-
-  const dispatch = useDispatch();
+  const history = useHistory();
 
   const loggedInUser = useSelector((state) => state.user.current);
   const isLoggedIn = !!loggedInUser.id;
@@ -65,9 +64,9 @@ function AddToCartForm({ onSubmit = null }) {
         variant: "info",
         autoHideDuration: 2000,
       });
-
-      const action = showFormLogin();
-      dispatch(action);
+      history.push({
+        pathname: "/login",
+      });
     }
   };
 

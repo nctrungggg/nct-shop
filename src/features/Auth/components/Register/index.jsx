@@ -14,7 +14,8 @@ Register.defaultProps = {
   closeDialog: null,
 };
 
-function Register({ closeDialog }) {
+function Register({ mode = {}, onSubmit = null }) {
+  console.log(mode);
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
 
@@ -26,17 +27,13 @@ function Register({ closeDialog }) {
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
 
-      // close dialog
-      if (!closeDialog) return;
-      closeDialog();
-
       // show success message
       enqueueSnackbar("Đăng ký thành công", {
         variant: "success",
         autoHideDuration: 1000,
-
       });
-      
+
+      if (onSubmit) return onSubmit(mode.LOGIN);
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }

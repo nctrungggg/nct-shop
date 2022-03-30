@@ -22,7 +22,6 @@ function LoginForm(props) {
   const useStyles = makeStyles((theme) => ({
     root: {
       position: "relative",
-      paddingTop: theme.spacing(2),
     },
 
     avatar: {
@@ -31,12 +30,18 @@ function LoginForm(props) {
     },
 
     title: {
-      margin: theme.spacing(2, 0, 2, 0),
+      fontSize: "28px",
+      marginBottom: theme.spacing(2),
+
+      fontFamily: "Poppins, sans-serif",
       textAlign: "center",
     },
 
     submit: {
       margin: theme.spacing(4, 0, 2, 0),
+      fontSize: "16px",
+      textTransform: "none",
+      fontFamily: "Poppins, sans-serif",
     },
 
     progress: {
@@ -54,10 +59,13 @@ function LoginForm(props) {
   const schema = yup.object().shape({
     identifier: yup
       .string()
-      .required("Please enter your email")
-      .email("Please enter a valid email address"),
+      .required("Vui lòng nhập email")
+      .email("Email không hợp lệ"),
 
-    password: yup.string().required("Please enter your password"),
+    password: yup
+      .string()
+      .required("Vui lòng nhập mật khẩu")
+      .min(6, "Mật khẩu tối thiểu 6 ký tự"),
   });
 
   const form = useForm({
@@ -79,15 +87,12 @@ function LoginForm(props) {
     <div className={classes.root}>
       {isSubmitting && <LinearProgress className={classes.progress} />}
 
-      <Avatar className={classes.avatar}>
-        <LockOutlinedIcon />
-      </Avatar>
       <Typography className={classes.title} component="h3" variant="h5">
         Đăng nhập
       </Typography>
       <form className={classes.form} onSubmit={form.handleSubmit(handleSubmit)}>
-        <InputField name="identifier" label="Email" form={form} /> 
-        <PasswordField name="password" label="Password" form={form} />
+        <InputField name="identifier" label="Email" form={form} />
+        <PasswordField name="password" label="Mật khẩu" form={form} />
 
         <Button
           type="submit"

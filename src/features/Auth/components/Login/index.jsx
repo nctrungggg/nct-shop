@@ -17,6 +17,7 @@ Login.defaultProps = {
 function Login({ closeDialog }) {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = async (values) => {
     try {
@@ -26,14 +27,15 @@ function Login({ closeDialog }) {
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
 
-      // close dialog
-      if (!closeDialog) return;
-      closeDialog();
-
       // show success message
       enqueueSnackbar("Đăng nhập thành công", {
         variant: "success",
         autoHideDuration: 1000,
+      });
+
+      // chuyển hướng sang trang chủ
+      history.push({
+        pathname: "/",
       });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });

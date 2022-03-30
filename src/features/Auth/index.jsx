@@ -13,6 +13,11 @@ const MODE = {
 function AuthFeature(props) {
   const [mode, setMode] = useState(MODE.LOGIN);
 
+  const handleSubmitRegister = (value) => {
+    console.log(value);
+    setMode(value);
+  };
+
   return (
     <div className="login">
       <div className="container">
@@ -27,10 +32,11 @@ function AuthFeature(props) {
           <div className="right__form">
             {mode === MODE.REGISTER && (
               <>
-                <Register />
+                <Register mode={MODE} onSubmit={handleSubmitRegister} />
 
                 <Box textAlign="center">
                   <Button
+                    className="btn_mode"
                     size="small"
                     color="primary"
                     onClick={() => setMode(MODE.LOGIN)}
@@ -47,6 +53,7 @@ function AuthFeature(props) {
 
                 <Box textAlign="center">
                   <Button
+                    className="btn_mode"
                     size="small"
                     color="primary"
                     onClick={() => setMode(MODE.REGISTER)}
