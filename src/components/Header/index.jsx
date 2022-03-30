@@ -79,7 +79,9 @@ export default function Header() {
         variant: "info",
         autoHideDuration: 2000,
       });
-      handleOpenDialog();
+      history.push({
+        pathname: "/login",
+      });
     }
   };
 

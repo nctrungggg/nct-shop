@@ -16,14 +16,14 @@ function AuthFeature(props) {
   return (
     <div className="login">
       <div className="container">
-        <div className="left">
+        <div className="left" data-aos="fade-right">
           <img
             src="https://images.pexels.com/photos/2899707/pexels-photo-2899707.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
             alt=""
           />
         </div>
 
-        <div className="right">
+        <div className="right" data-aos="fade-left">
           <div className="right__form">
             {mode === MODE.REGISTER && (
               <>
