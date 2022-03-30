@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
-import QuantityField from "components/form-controls/QuantityField";
+import QuantityField from "components/FormControl/QuantityField";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
