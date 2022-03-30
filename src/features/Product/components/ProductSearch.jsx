@@ -1,7 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, InputBase, makeStyles } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import InputField from "components/Form-controls/InputField/index";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";

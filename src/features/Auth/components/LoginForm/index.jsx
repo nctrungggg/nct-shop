@@ -11,8 +11,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import PasswordField from "components/Form-controls/PasswordField";
-import InputField from "components/Form-controls/InputField";
+import InputField from "components/form-controls/InputField";
+import PasswordField from "components/form-controls/PasswordField";
 
 LoginForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -86,7 +86,7 @@ function LoginForm(props) {
         Đăng nhập
       </Typography>
       <form className={classes.form} onSubmit={form.handleSubmit(handleSubmit)}>
-        <InputField name="identifier" label="Email" form={form} />
+        <InputField name="identifier" label="Email" form={form} /> 
         <PasswordField name="password" label="Password" form={form} />
 
         <Button
