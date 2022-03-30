@@ -102,6 +102,10 @@ export default function Header() {
     };
   }, []);
 
+  const handleLogin = () => {
+    history.push("login");
+  };
+
   return (
     <div className="header" ref={headerRef}>
       <div className="header__logo">N C T</div>
@@ -127,13 +131,19 @@ export default function Header() {
         </div>
         <div className="nav-bar__right">
           {!isLoggedIn && (
-            <button className="btn btn-login" onClick={handleOpenDialog}>
+            // <button className="btn btn-login" onClick={handleOpenDialog}>
+            //   Đăng nhập
+            // </button>
+            <button className="btn btn-login" onClick={handleLogin}>
               Đăng nhập
             </button>
           )}
 
           {isLoggedIn && mode === MODE.REGISTER && (
-            <button onClick={handleOpenDialog}>Đăng nhập</button>
+            // <button onClick={handleOpenDialog}>Đăng nhập</button>
+            <button className="btn btn-login" onClick={handleLogin}>
+              Đăng nhập
+            </button>
           )}
 
           {isLoggedIn && mode === MODE.LOGIN && (
@@ -192,7 +202,7 @@ export default function Header() {
           <Close />
         </IconButton>
 
-        <DialogContent>
+        {/* <DialogContent>
           {mode === MODE.REGISTER && (
             <>
               <Register closeDialog={handleCloseDialog} />
@@ -224,7 +234,7 @@ export default function Header() {
               </Box>
             </>
           )}
-        </DialogContent>
+        </DialogContent> */}
       </Dialog>
     </div>
   );

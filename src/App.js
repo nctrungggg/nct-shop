@@ -12,6 +12,7 @@ import ContactFeature from "features/Contact";
 import ScrollButton from "components/ScrollButton";
 import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import { css } from "styled-components";
+import AuthFeature from "features/Auth";
 
 const override = css`
   position: absolute;
@@ -28,7 +29,7 @@ function App() {
 
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1000);
   }, []);
 
   return (
@@ -51,11 +52,13 @@ function App() {
               <Route path="/" component={HomeFeature} exact />
               <Route path="/products" component={ProductFeature} />
               <Route path="/cart" component={CartFeature} />
-              {/* <Route path="/contact" component={ContactFeature} /> */}
 
+              <Route path="/login" component={AuthFeature} />
+              
               <Route component={NotPound} />
             </Switch>
             <ScrollButton />
+
             <Footer />
           </>
         )}
