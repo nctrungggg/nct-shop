@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 
@@ -14,13 +14,21 @@ function ScrollButton() {
     });
   };
 
-  window.addEventListener("scroll", () => {
+  const handleScroll = () => {
     if (window.scrollY > 500) {
       setIsShow(true);
     } else {
       setIsShow(false);
     }
-  });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div

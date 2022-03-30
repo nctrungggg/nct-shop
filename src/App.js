@@ -39,7 +39,7 @@ function App() {
             css={override}
             color={"#153EA5"}
             loading={loading}
-            size={30}
+            size={20}
           />
         ) : (
           <>
