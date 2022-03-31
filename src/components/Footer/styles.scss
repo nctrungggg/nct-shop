@@ -1,12 +1,14 @@
 .footer {
   padding: 4rem 0;
   border-top: 1px solid #ababab;
-  .container {
+
+  &__container {
     display: grid;
     gap: 2rem;
     grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr;
   }
 }
+
 .logo-col {
   display: flex;
   flex-direction: column;
