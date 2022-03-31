@@ -10,7 +10,7 @@ Footer.propTypes = {};
 function Footer(props) {
   return (
     <div className="footer">
-      <div className="container">
+      <div className="footer__container">
         <div className="logo-col">
           <p className="footer-logo">N C T</p>
           <ul className="social-links">

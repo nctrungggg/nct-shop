@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "row nowrap",
     alignItems: "center",
     borderBottom: `1px solid ${theme.palette.grey[300]}`,
-
   },
   img: {
     width: "150px",
@@ -74,6 +73,19 @@ const useStyles = makeStyles((theme) => ({
 
     "& > button:hover": {
       color: "#3f51b5",
+    },
+  },
+  titleDelete: {
+    " & > h2": {
+      fontFamily: "Poppins, sans-serif",
+    },
+    fontFamily: "Poppins, sans-serif",
+  },
+  btn: {
+    " & > span": {
+      fontSize: "14px",
+      fontFamily: "Poppins, sans-serif",
+      textTransform: "none",
     },
   },
 }));
@@ -135,9 +147,7 @@ function CartProduct({ cart = {} }) {
           <p>{cart.product.name} </p>
         </Box>
 
-        <p className={classes.price}>
-          {formatPrice(cart.product.salePrice)}
-        </p>
+        <p className={classes.price}>{formatPrice(cart.product.salePrice)}</p>
 
         <Box className={classes.quantity}>
           <QuantityField
@@ -165,12 +175,15 @@ function CartProduct({ cart = {} }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle className={classes.titleDelete} id="alert-dialog-title">
           Xóa sản phẩm khỏi giỏ hàng
         </DialogTitle>
 
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText
+            className={classes.titleDelete}
+            id="alert-dialog-description"
+          >
             Bạn có chắc chắn muốn xóa sản phẩm đang chọn ?
           </DialogContentText>
         </DialogContent>
@@ -181,11 +194,16 @@ function CartProduct({ cart = {} }) {
             color="primary"
             size="small"
             autoFocus
+            className={classes.btn}
           >
             Xác nhận
           </Button>
 
-          <Button onClick={() => setOpenDialog(false)} color="primary">
+          <Button
+            className={classes.btn}
+            onClick={() => setOpenDialog(false)}
+            color="primary"
+          >
             Hủy bỏ
           </Button>
         </DialogActions>

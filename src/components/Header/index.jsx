@@ -89,7 +89,7 @@ export default function Header() {
   }, []);
 
   const handleLogin = () => {
-    history.push("login");
+    history.push("/login");
   };
 
   return (

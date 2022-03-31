@@ -105,6 +105,7 @@ function RegisterForm(props) {
       <Typography className={classes.title} component="h3" variant="h5">
         Đăng ký tài khoản
       </Typography>
+      
       <form className={classes.form} onSubmit={form.handleSubmit(handleSubmit)}>
         <InputField name="fullName" label="Tên đầy đủ" form={form} />
         <InputField name="email" label="Email" form={form} />

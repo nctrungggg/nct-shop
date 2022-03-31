@@ -1,18 +1,16 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-  Avatar,
   Button,
   LinearProgress,
   makeStyles,
-  Typography,
+  Typography
 } from "@material-ui/core";
+import InputField from "components/FormControl/InputField";
+import PasswordField from "components/FormControl/PasswordField";
 import PropTypes from "prop-types";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import InputField from "components/FormControl/InputField";
-import PasswordField from "components/FormControl/PasswordField";
 
 LoginForm.propTypes = {
   onSubmit: PropTypes.func,

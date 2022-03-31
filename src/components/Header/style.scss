@@ -1,6 +1,5 @@
 $box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
 
-
 button {
   display: inline-block;
   border-radius: 0px;
@@ -85,6 +84,11 @@ button {
       }
     }
   }
+
+  @media screen and (max-width: 767.98px) {
+  
+  }
+  
 }
 .account {
   display: inline-block;
